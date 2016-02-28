@@ -1,38 +1,51 @@
 var express = require('express');
-var request = require('request');
-var fs = require('fs');
-var engines = require('consolidate');
-var config = require('./config.js');
+var helmet = require('helmet');
+var hbs = require('hbs');
+var paramLogger = require('./middleware/paramLogger');
+var jsonOut = require('./middleware/jsonOut');
+
 var app = express();
+var router = express.Router();
 
-app.engine('hbs', engines.handlebars);
+// set some default security
+app.use(helmet());
 
-app.set('views', './views');
+// set up handlebars to be view engine
+app.engine('hbs', require('hbs').__express);
 app.set('view engine', 'hbs');
+app.set('views', './views');
+hbs.registerPartials(__dirname + '/views/partials');
 
-var locations = [
+// hardcoded cities to be used in example
+var defaultLocations = [
 	{state: 'CA', city: 'Campbell'},
 	{state: 'MD', city: 'Timonium'},
 	{state: 'NE', city: 'Omaha'},
-	{state: 'TX', city: 'Austin'}
+	{state: 'TX', city: 'Austin'},
+	{state: '', city: 'Nowhere'},
+	{state: 'X', city: 'X'}
 ];
 
+// root route.
 app.get('/', function(req, res) {
 	res.render('index', {
-		locations: locations
+		title: "Choose Weather Report",
+		locations: defaultLocations
 	});
 });
 
-app.get('/wu/:state/:city', function(req, res) {
-	var url = 'http://api.wunderground.com/api/' + config.apiKey + '/conditions/q/' + req.params.state + '/' + req.params.city + '.json';
+//weather api get state/city route: state and city required
+router.route('/conditions/:state/:city').get(paramLogger, jsonOut);
 
-	request(url, function(err, response, body) {
-		if (!err && response.statusCode === 200) {
-			res.send(body);
-		}
+app.use('/api/v1', router);
+
+app.use(function(req, res) {
+    res.status(404).render('404', {
+		title: "404!",
+		url: req.originalUrl
 	});
 });
 
 var server = app.listen(3000, function() {
-	console.log('Server running on port ' + server.address().port);
+	console.log('Get your weather on port ' + server.address().port);
 });
