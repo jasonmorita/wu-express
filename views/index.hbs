@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Choose Weather Report</title>
+</head>
+<body>
+	<h1>Choose...</h1>
+	<ul>
+		{{#each locations as |location|}}
+			<li>
+				<a href="/wu/{{location.state}}/{{location.city}}">{{location.city}}, {{location.state}}</a>
+			</li>
+		{{/each}}
+	</ul>
+
+</body>
+</html>
