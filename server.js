@@ -29,11 +29,13 @@ app.route('/').get(getDefaults, function(req, res) {
 	});
 });
 
-//weather api get state/city route: state and city required
+// weather api get state/city route: state and city required
 router.route('/conditions/:state/:city').get(paramLogger, jsonOut);
 
+// api route
 app.use('/api/v1', router);
 
+// end of the line if no file is found
 app.use(function(req, res) {
     res.status(404).render('404', {
 		title: "404!",
@@ -41,7 +43,7 @@ app.use(function(req, res) {
 	});
 });
 
-// here we go!
+// start server
 var server = app.listen(3000, function() {
 	console.log('Get your weather on port ' + server.address().port);
 });
