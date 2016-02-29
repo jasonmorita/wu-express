@@ -4,7 +4,7 @@ var hbs = require('hbs');
 var _ = require('lodash');
 var engine = require('hbs').__express;
 var getDefaults = require('./middleware/getDefaults');
-var config = require('./config.js');
+var config = require('./config.js'); // <- my key is in here
 var paramLogger = require('./middleware/paramLogger');
 var jsonOut = require('./middleware/jsonOut');
 
@@ -24,7 +24,7 @@ app.use(helmet());
 app.route('/').get(getDefaults, function(req, res) {
     var results = _.uniq(res.results);
 	res.render('index', {
-		title: "Choose Weather Report",
+		title: "Default Weather Reports",
 		results: results
 	});
 });
@@ -41,6 +41,7 @@ app.use(function(req, res) {
 	});
 });
 
+// here we go!
 var server = app.listen(3000, function() {
 	console.log('Get your weather on port ' + server.address().port);
 });
