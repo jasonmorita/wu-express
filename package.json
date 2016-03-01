@@ -1,5 +1,5 @@
 {
-  "name": "high-jump-exercise",
+  "name": "wu-express",
   "version": "0.1.0",
   "description": "Wunderground API call",
   "main": "server.js",
