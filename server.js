@@ -25,10 +25,10 @@ app.use(helmet());
 // root route
 app.route('/').get(getDefaults, function(req, res) {
     var results = _.uniq(req.results);
-	res.render('index', {
-		title: "Default Weather Reports",
-		results: results
-	});
+    res.render('index', {
+        title: "Default Weather Reports",
+        results: results
+    });
 });
 
 // weather api get state/city route: state and city required
@@ -40,14 +40,14 @@ app.use('/api/v1', router);
 // end of the line if no file is found
 app.use(function(req, res) {
     res.status(404).render('404', {
-		title: "404!",
-		url: req.originalUrl
-	});
+        title: "404!",
+        url: req.originalUrl
+    });
 });
 
 // start server
 var server = app.listen(3000, function() {
-	console.log('Get your weather on port ' + server.address().port);
+    console.log('Get your weather on port ' + server.address().port);
 });
 
 module.exports = server;
