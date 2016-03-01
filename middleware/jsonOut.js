@@ -8,7 +8,7 @@ module.exports = function jsonOut(req, res, next) {
 	request(url, function(err, response, body) {
 		// good response
 		if (!err && response.statusCode === 200) {
-			res.send(body);
+			res.json(JSON.parse(body));
 		}
 	});
 };

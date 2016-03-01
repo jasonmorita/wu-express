@@ -8,8 +8,8 @@ module.exports = function(req, res, next) {
     var defaultLocations = [
     	{state: 'CA', city: 'Campbell'},
     	{state: 'MD', city: 'Timonium'},
-    	{state: 'NE', city: 'Omaha'},
-    	{state: 'TX', city: 'Austin'}
+    	// {state: 'NE', city: 'Omaha'},
+    	// {state: 'TX', city: 'Austin'}
     ];
 
     var urls = defaultLocations.map(function(location) {
@@ -19,7 +19,7 @@ module.exports = function(req, res, next) {
     var results = [];
 
     // iterator to be called on each element in url array
-    function httpGet(url, callback) {
+    function getData(url, callback) {
         // make the call
         request(url, function(err, res, body) {
                 results.push(JSON.parse(body));
@@ -29,13 +29,13 @@ module.exports = function(req, res, next) {
     }
 
     // map over urls to get location info
-    async.map(urls, httpGet, function (err, response){
+    async.map(urls, getData, function (err, response){
         if (err) {
             return console.log(err);
         }
 
         // this will get passed on to be used in view
-        res.results = results;
+        req.results = results;
         next();
     });
 }
