@@ -1,5 +1,5 @@
 var request = require('request');
-var config = require('../config.js');
+var config = require('../config.json');
 
 module.exports = function jsonOut(req, res, next) {
 	// wu api path
@@ -9,7 +9,7 @@ module.exports = function jsonOut(req, res, next) {
         if (err) {
             return console.log(err);
         }
-        
+
 		// good response
 		if (!err && response.statusCode === 200) {
 			res.json(JSON.parse(body));

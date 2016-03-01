@@ -3,8 +3,10 @@ var helmet = require('helmet');
 var hbs = require('hbs');
 var _ = require('lodash');
 var engine = require('hbs').__express;
+
+var config = require('./config.json'); // <- my key is in here
+
 var getDefaults = require('./middleware/getDefaults');
-var config = require('./config.js'); // <- my key is in here
 var paramLogger = require('./middleware/paramLogger');
 var jsonOut = require('./middleware/jsonOut');
 

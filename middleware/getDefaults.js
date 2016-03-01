@@ -1,6 +1,6 @@
 var async = require('async');
 var request = require('request');
-var config = require('../config.js');
+var config = require('../config.json');
 
 module.exports = function(req, res, next) {
 
@@ -8,8 +8,8 @@ module.exports = function(req, res, next) {
     var defaultLocations = [
     	{state: 'CA', city: 'Campbell'},
     	{state: 'MD', city: 'Timonium'},
-    	// {state: 'NE', city: 'Omaha'},
-    	// {state: 'TX', city: 'Austin'}
+    	{state: 'NE', city: 'Omaha'},
+    	{state: 'TX', city: 'Austin'}
     ];
 
     var urls = defaultLocations.map(function(location) {

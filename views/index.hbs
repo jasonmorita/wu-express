@@ -1,5 +1,7 @@
 {{> top}}
 
+    <h1>Wunderground API example</h1>
+
 	<table>
 		{{#each results as |result|}}
     			<tr>
@@ -7,21 +9,25 @@
                         <img src="{{current_observation.icon_url}}" alt="" />
                     </td>
     				<td>
-                        {{current_observation.display_location.full}}
+                        <h3>{{current_observation.display_location.full}}</h3>
                     </td>
                     <td>
-                        {{current_observation.weather}}
-                    </td>
-                    <td>
-                        {{current_observation.temperature_string}}
-                    </td>
-                    <td>
-                        {{current_observation.observation_time}}
-                    </td>
-                    <td>
-                        <a href="/api/v1/conditions/{{current_observation.display_location.state}}/{{current_observation.display_location.city}}">
-                            View full details
-                        </a>
+                        <ul class="list-unstyled">
+                            <li>
+                                {{current_observation.weather}}
+                            </li>
+                            <li>
+                                {{current_observation.temperature_string}}
+                            </li>
+                            <li>
+                                <small>{{current_observation.observation_time}}</small>
+                            </li>
+                            <li>
+                                <a href="/api/v1/conditions/{{current_observation.display_location.state}}/{{current_observation.display_location.city}}">
+                                View full details as JSON
+                                </a>
+                            </li>
+                        </ul>
                     </td>
     			</tr>
 		{{/each}}
